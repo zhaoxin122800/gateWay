@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<contestList>
+    <user id="001">
+        <id>1</id>
+        <name>root</name>		<!--	该IP地址的 账号  -->
+        <psw>123456</psw>		<!--	该IP 地址的 密码-->
+        <url>192.168.200.128</url>    <!--连接的IP 地址-->
+        <!-- 填写shell的脚本地址-->
+        <start>/home/start1.sh</start>   <!-- 启动脚本的地址 本地地址"/xxxxxx"-->
+        <reset>/home/reset1.sh</reset>  <!--  重启脚本的地址-->
+        <break>/home/break1.sh</break>  <!--  断开脚本的地址-->
+    </user>
+
+
+    <user id="002">
+        <id>2</id>
+        <name>王五</name>
+        <psw>12345</psw>
+        <url>192.168.200.12</url>
+        <start>/home/start2.sh</start>
+        <reset>/home/reset2.sh</reset>
+        <break>/home/break2.sh</break>
+    </user>
+
+
+    <user id="003">
+        <id>3</id>
+        <name>王五</name>
+        <psw>12345</psw>
+        <url>192.168.200.133</url>
+        <start>/home/start3.sh</start>
+        <reset>/home/reset3.sh</reset>
+        <break>/home/break3.sh</break>
+    </user>
+
+    <user id="004">
+        <id>4</id>
+        <name>王五</name>
+        <psw>12345</psw>
+        <url>192.168.200.133</url>
+        <start>/home/start4.sh</start>
+        <reset>/home/reset4.sh</reset>
+        <break>/home/break4.sh</break>
+    </user>
+
+
+
+</contestList>

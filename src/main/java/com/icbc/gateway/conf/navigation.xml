@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<contestList>
+        <user id="001">
+            <name>测试一</name>
+            <name>测试二</name>
+            <name>测试三</name>
+            <name>测试四</name>
+        </user>
+</contestList>
