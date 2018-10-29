@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: com.icbc.gateway.GatewayApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 9.117 s <<< FAILURE! - in com.icbc.gateway.GatewayApplicationTests
+test2(com.icbc.gateway.GatewayApplicationTests)  Time elapsed: 1.758 s  <<< ERROR!
+com.jcraft.jsch.SftpException: java.io.FileNotFoundException: D:\logmock.sh (系统找不到指定的文件。)
+	at com.icbc.gateway.GatewayApplicationTests.test2(GatewayApplicationTests.java:46)
+Caused by: java.io.FileNotFoundException: D:\logmock.sh (系统找不到指定的文件。)
+	at com.icbc.gateway.GatewayApplicationTests.test2(GatewayApplicationTests.java:46)
+

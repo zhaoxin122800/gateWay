@@ -1,7 +1,7 @@
 package com.icbc.gateway.pojo;
 
 public class GTH {
-
+    private String users;
     private String id;
     private String url;
     private String name;
@@ -11,7 +11,39 @@ public class GTH {
     private String breakShell;
 
     public GTH() {
-        super();
+    }
+
+    @Override
+    public String toString() {
+        return "GTH{" +
+                "users='" + users + '\'' +
+                ", id='" + id + '\'' +
+                ", url='" + url + '\'' +
+                ", name='" + name + '\'' +
+                ", psw='" + psw + '\'' +
+                ", startShell='" + startShell + '\'' +
+                ", resetShell='" + resetShell + '\'' +
+                ", breakShell='" + breakShell + '\'' +
+                '}';
+    }
+
+    public GTH(String users, String id, String url, String name, String psw, String startShell, String resetShell, String breakShell) {
+        this.users = users;
+        this.id = id;
+        this.url = url;
+        this.name = name;
+        this.psw = psw;
+        this.startShell = startShell;
+        this.resetShell = resetShell;
+        this.breakShell = breakShell;
+    }
+
+    public String getUsers() {
+        return users;
+    }
+
+    public void setUsers(String users) {
+        this.users = users;
     }
 
     public String getId() {

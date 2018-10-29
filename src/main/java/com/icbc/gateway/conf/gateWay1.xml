@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<contestList>
+
+<users  value="1组">	
+    <user id="1">
+        <name>root</name>		<!--	该IP地址的 账号  -->
+        <psw>123456</psw>		<!--	该IP 地址的 密码-->
+        <url>192.168.200.128</url>    <!--连接的IP 地址-->
+       <!-- 填写shell的脚本地址-->
+        <start>/home/start1.sh</start>   <!-- 启动脚本的地址 本地地址"/xxxxxx"-->
+        <reset>/home/reset1.sh</reset>  <!--  重启脚本的地址-->
+        <break>/home/break1.sh</break>  <!--  断开脚本的地址-->
+    </user>
+
+    <user id="2">
+        <name>root</name>
+        <psw>123456</psw>
+        <url>192.168.200.128</url>
+        <start>/home/start2.sh</start>
+        <reset>/home/reset2.sh</reset>
+        <break>/home/break2.sh</break>
+    </user>
+
+</users>
+
+<users value="2组">	
+    <user id="3">
+        <name>root</name>		<!--	该IP地址的 账号  -->
+        <psw>123456</psw>		<!--	该IP 地址的 密码-->
+        <url>192.168.200.128</url>    <!--连接的IP 地址-->
+       <!-- 填写shell的脚本地址-->
+        <start>/home/start1.sh</start>   <!-- 启动脚本的地址 本地地址"/xxxxxx"-->
+        <reset>/home/reset1.sh</reset>  <!--  重启脚本的地址-->
+        <break>/home/break1.sh</break>  <!--  断开脚本的地址-->
+    </user>
+
+    <user id="4">
+        <name>root</name>
+        <psw>123456</psw>
+        <url>192.168.200.128</url>
+        <start>/home/start2.sh</start>
+        <reset>/home/reset2.sh</reset>
+        <break>/home/break2.sh</break>
+    </user>
+
+</users>
+	
+	<users  value="3组">	
+    <user id="5">
+        <name>root</name>		<!--	该IP地址的 账号  -->
+        <psw>123456</psw>		<!--	该IP 地址的 密码-->
+        <url>192.168.200.128</url>    <!--连接的IP 地址-->
+       <!-- 填写shell的脚本地址-->
+        <start>/home/start1.sh</start>   <!-- 启动脚本的地址 本地地址"/xxxxxx"-->
+        <reset>/home/reset1.sh</reset>  <!--  重启脚本的地址-->
+        <break>/home/break1.sh</break>  <!--  断开脚本的地址-->
+    </user>
+
+    <user id="6">
+        <name>root</name>
+        <psw>123456</psw>
+        <url>192.168.200.128</url>
+        <start>/home/start2.sh</start>
+        <reset>/home/reset2.sh</reset>
+        <break>/home/break2.sh</break>
+    </user>
+
+</users>
+
+<users  value="4组">	
+    <user id="7">
+        <name>root</name>		<!--	该IP地址的 账号  -->
+        <psw>123456</psw>		<!--	该IP 地址的 密码-->
+        <url>192.168.200.128</url>    <!--连接的IP 地址-->
+       <!-- 填写shell的脚本地址-->
+        <start>/home/start1.sh</start>   <!-- 启动脚本的地址 本地地址"/xxxxxx"-->
+        <reset>/home/reset1.sh</reset>  <!--  重启脚本的地址-->
+        <break>/home/break1.sh</break>  <!--  断开脚本的地址-->
+    </user>
+
+    <user id="8">
+        <name>root</name>
+        <psw>123456</psw>
+        <url>192.168.200.128</url>
+        <start>/home/start2.sh</start>
+        <reset>/home/reset2.sh</reset>
+        <break>/home/break2.sh</break>
+    </user>
+	   <user id="9">
+        <name>root</name>
+        <psw>123456</psw>
+        <url>192.168.200.128</url>
+        <start>/home/start2.sh</start>
+        <reset>/home/reset2.sh</reset>
+        <break>/home/break2.sh</break>
+    </user>   
+	<user id="10">
+        <name>root</name>
+        <psw>123456</psw>
+        <url>192.168.200.128</url>
+        <start>/home/start2.sh</start>
+        <reset>/home/reset2.sh</reset>
+        <break>/home/break2.sh</break>
+    </user>
+
+</users>
+	
+	
+
+
+</contestList>
