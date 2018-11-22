@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>品牌管理</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../plugins/adminLTE/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js" ></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js" ></script>
+    <script  src="../plugins/layer/layer.js"></script>
+
+    <script src="../plugins/angularjs/angular.min.js"></script>
+    <script src="../plugins/angularjs/pagination.js" ></script>
+    <link rel="stylesheet" type="text/css" href="../plugins/angularjs/pagination.css" >
+
+
+</head>
+<body>
+<!-- 按钮触发模态框 -->
+<!--<span class="annnys">-->
+	<!--<a id="linuxWindow" class="pve-tabletack active-tabletack" href="javascript:establishDialog()" style="cursor:pointer;">控制台</a>-->
+<!--</span>-->
+    <button  id="linuxWindow" class="pve-tabletack active-tabletack" onclick="javascript:establishDialog()" style="cursor:pointer;">控制台</button>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal"
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog"  style="width:703px;height:410px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <p class="modal-title" id="myModalLabel">Linux 控制台</p>
+            </div>
+            <div class="modal-body" style="padding:0px;">
+                <!-- <iframe id="box" src="box.jsp" style="width:600px;height:400px;"></iframe> -->
+
+                <div class="wingb" id="msg">
+                    <ul class="myul">
+                        <!--<li>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;命令Demo&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</li>-->
+                        <!--<li>关闭进程方式1：</li>-->
+                        <!--<li>ps -aux | grep test.jar		//根据提交的jar包名字来查找进程，再kill -9 [pid]杀掉进程</li>-->
+                        <!--<li>关闭进程方式2：</li>-->
+                        <!--<li>ps -aux | grep test.jar | kill -9 `awk '{print $2}'`	//查找进程id并立即杀掉</li>-->
+                        <!--<li>关闭进程方式3：</li>-->
+                        <!--<li>kill -9 $(cat my.pid)	//前提：提交任务时获取进程号: spark-submit &#45;&#45;class demo.WordCount test.jar & echo $!>my.pid</li>-->
+                        <!--<li>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;开始操作&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</li>-->
+                    </ul>
+                    <!-- <div class="incmd"  contentEditable="true"  id='in'>$</div> -->
+                    <input class="incmd" type="text" value="$" id='in'>
+                </div>
+
+            </div><!-- modal-body -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    $("#in").keyup(function(event) {
+        if (event.keyCode == 13) {	//回车
+            $.ajax({
+                async: false,
+                type : "POST",
+                url : "${pageContext.request.contextPath}/gth/linux",
+                data : "code=" + $("#in").val().substring(1),
+                success : function(data) {
+                    $("ul").append("<li>" + $("#in").val() + "</li>");  //将输入的输出到界面
+                    $("ul").append("<li>" + data + "</li>"); //获取返回值并输出
+                    $("#in").val("$"); //清空输入框
+                    $("#msg").scrollTop($("#msg").scrollTop() + 9999);//滚动条拉到最下面，显示出输入框
+                }
+            });
+        }
+        else  if(event.ctrlKey && event.which == 81){ //ctrl+Q 中断
+            alert("ctrl+Q 中断");
+            CloseWebPage();
+        }
+    });
+
+    $("#in")[0].focus();
+
+    function CloseWebPage() {
+        if (navigator.userAgent.indexOf("MSIE") > 0) {
+            if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+                window.opener = null;
+                window.close();
+            } else {
+                window.open('', '_top');
+                window.top.close();
+            }
+        } else if (navigator.userAgent.indexOf("Firefox") > 0) {
+            window.location.href = 'about:blank ';
+        } else {
+            window.opener = null;
+            window.open('', '_self', '');
+            window.close();
+        }
+    }
+
+    //创建按钮 弹出框
+    function establishDialog(){
+        xajax.iframeLAYER('${pageContext.request.contextPath}/gth/addWindow.do',
+            "linux控制台",
+            '620px',
+            '430px',
+            function(){
+            });
+
+    }
+
+</script>
+</body>
+</html>

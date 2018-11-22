@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../plugins/adminLTE/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js" ></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js" ></script>
+    <script  src="../plugins/layer/layer.js"></script>
+
+    <script src="../plugins/angularjs/angular.min.js"></script>
+    <script src="../plugins/angularjs/pagination.js" ></script>
+    <link rel="stylesheet" type="text/css" href="../plugins/angularjs/pagination.css" >
+
+    <script>
+        var app = angular.module('ICBC',[]);
+        app.controller('gthController',function ($scope,$http) {
+
+            $scope.addWindow = function () {
+                $http.post('../gth/addWindow').success(
+                   function (response) {
+                       if(response.flag){
+                           layer.open({
+                               type: 2,
+                               title: 'Linux 黑窗口',
+                               maxmin: true,
+                               shadeClose: true, //点击遮罩关闭层
+                               area: ['800px', '520px'],
+                               content: 'box1.html'
+                           })
+                       }
+                   }
+
+                )
+            }
+
+        });
+
+    </script>
+
+</head>
+<body ng-app="ICBC" ng-controller="gthController">
+
+<!--<a id="parentIframe"  class="layui-btn">运行上述例子</a>-->
+
+<button id="parentIframe" ng-click="addWindow()" class="layui-btn">运行上述例子</button>
+</body>
+</html>
