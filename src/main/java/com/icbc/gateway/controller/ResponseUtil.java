@@ -12,9 +12,4 @@ public class ResponseUtil {
         out.close();
     }
 
-//---------------------
-//    作者：debug-steadyjack
-//    来源：CSDN
-//    原文：https://blog.csdn.net/u013871100/article/details/52039089
-//    版权声明：本文为博主原创文章，转载请附上博文链接！
 }

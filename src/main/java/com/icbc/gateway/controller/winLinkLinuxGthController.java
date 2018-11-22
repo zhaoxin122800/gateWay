@@ -204,65 +204,7 @@ public class winLinkLinuxGthController {
         return gthService.logInspectEntityCommand(s);
     }
 
-    ///////////////////////////////////////////////////
-        /*
-	 * 创建按钮弹出框
-//	 */
-//    @RequestMapping("/addWindow")
-//    public ModelAndView goNewAddServer(HttpServletRequest req) {
-////        ssh连接linux---------从xml配置文件中读取参数
-////        ApplicationContext ct = new ClassPathXmlApplicationContext("applicationContext.xml");
-////        Permission per = (Permission) ct.getBean("linux");
-////        String hostname = per.getIp();
-////        int port  = per.getPort();
-////        String username = per.getUsername();
-////        String password = per.getPassword();
-////        System.out.println("ssh连接linux---------Permission="+per.toString());
-//        try {
-////            ssh = new SSHLinux(hostname,port,username,password);
-//            //或者将账号写死
-//            SSHLinux ssh = new SSHLinux("192.168.200.144", 22, "root", "123456");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new ModelAndView("./admin/box1.html");///对应web console页面
-//    }
 
-    //  @RequestMapping("/linux")
-    // public Result getLinux(@RequestBody String cmd){
-//        try{
-//            System.out.println("\n-----------------Linux Shell-----------------\n");
-//            System.out.println("执行命令： "+cmd);
-//            SSHLinux   ssh = new SSHLinux("192.168.200.144",22,"root","123456");
-//            if(ssh!=null)
-//            {
-//                List<String> list = new ArrayList<String>();
-//                if(cmd.length()==0)
-//                {
-//                    System.out.println("输入为空");
-//                    //list.add("输入为空");
-//                }
-//                else if(cmd!="" || cmd.length()!=0 || cmd!=null)
-//                {
-//                    list = ssh.execute(cmd);
-//                }
-//                String result = "";
-//                for(String str:list){
-//                    result += str.trim()+"<br/>";
-//                }
-//                return  new Result(true,result);
-//            }
-////            else
-////            {
-////                System.out.println("没有连接，不执行命令");
-////                //return "";
-////            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        return new Result(false,"");
-//    }
-////////////////////////////////////////
     public static ChannelShell channelShell;
 
     @RequestMapping("/addWindow")
