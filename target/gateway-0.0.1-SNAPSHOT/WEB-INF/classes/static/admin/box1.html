@@ -1,0 +1,118 @@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>命令行窗口</title>
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js" ></script>
+    <script  src="../plugins/layer/layer.js"></script>
+
+    <script src="../plugins/angularjs/angular.min.js"></script>
+    <script src="../plugins/angularjs/pagination.js" ></script>
+    <link rel="stylesheet" type="text/css" href="../plugins/angularjs/pagination.css" >
+
+    <style type="text/css">
+        body{
+            background-color: #424242;  /*背景颜色*/
+            font-size:14px;
+        }
+
+
+        .incmd {
+            background-color: #9FB6CD; /*输入行颜色*/
+            border: 0;
+            color: #FFFFFF; /*输入字体颜色*/
+            outline: none;
+            font-size:14px;
+            width: 99%;
+        }
+
+        .panel {/*暂时未用*/
+            background-color: #424242;  /*背景颜色*/
+            border-top: #424242 outset 2px;/*上边框*/
+            width: 700px;
+            height: 500px;
+            overflow-y: scroll;
+            overflow-x:visible;
+            font-size:14px;
+
+        }
+
+        ul {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            color:#7CFC00; /*显示字体颜色*/
+        }
+
+        input {
+            background-color: #9FB6CD; /*输入行颜色*/
+            border: 0;
+            color: #FFFFFF; /*输入字体颜色*/
+            outline: none;
+            font-size:14px;
+            width: 99%;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var app = angular.module('ICBC',[]);
+        app.controller('gthController',function ($scope,$http) {
+
+            $scope.linux = function($event){
+                if($event.keyCode == 13){
+                   $http.post('../gth/linux',$scope.entity).success(
+                       function (response) {
+                           if(response.flag==true) {
+
+                               $("ul").append("<li>" +"输入的命令为:      "+ $scope.entity + "</li>"+"<br>");  //将输入的输出到界面
+
+                               angular.forEach(response.message,function (data) {
+
+                               $("ul").append("<li>" + data + "</li>"); //获取返回值并输出
+
+                               })
+
+                               $scope.entity=""; //清空输入框
+                               $("#msg").scrollTop($("#msg").scrollTop() + 9999);//滚动条拉到最下面，显示出输入框
+                           }
+                           }
+                   )
+
+                }
+
+            }
+        })
+
+
+        function CloseWebPage() {
+            if (navigator.userAgent.indexOf("MSIE") > 0) {
+                if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+                    window.opener = null;
+                    window.close();
+                } else {
+                    window.open('', '_top');
+                    window.top.close();
+                }
+            } else if (navigator.userAgent.indexOf("Firefox") > 0) {
+                window.location.href = 'about:blank ';
+            } else {
+                window.opener = null;
+                window.open('', '_self', '');
+                window.close();
+            }
+        }
+    </script>
+</head>
+
+<body ng-app="ICBC" ng-controller="gthController">
+<div id="msg">
+    <ul>
+        <li>----------------------命令Demo----------------------------</li>
+        <li>关闭进程方式1：</li>
+        <li>    exit		//退出 进程</li>
+        <li>----------------------开始操作----------------------------</li>
+    </ul>
+
+    <input type="text" ng-model="entity" value="$" ng-keypress="linux($event)" >
+</div>
+
+</body>

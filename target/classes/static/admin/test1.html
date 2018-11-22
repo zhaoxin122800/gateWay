@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>品牌管理</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../plugins/adminLTE/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js" ></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js" ></script>
+
+    <script src="../plugins/angularjs/angular.min.js" ></script>
+    <script src="../plugins/angularjs/pagination.js" ></script>
+    <link rel="stylesheet" type="text/css" href="../plugins/angularjs/pagination.css" >
+
+
+    <script type="text/javascript">
+        var app = angular.module('ICBC',[]);
+        app.controller('gthController',function ($scope,$http) {
+            $scope.gthAll=function () {
+                $http.get('../gth/gthAll').success(
+                    function (response) {
+                        $scope.list=response;
+                    }
+                )
+            }
+            //启动shell
+            $scope.startShell = function (id) {
+                $http.get("../gth/startShell?id="+id).success(
+                    function (response) {
+                        if(response.flag==true){
+                            $scope.entity = response;
+                               alert(response.message);
+                        }else {
+                               alert(response.message);
+                        }
+                        
+                    }
+                )
+            }
+
+
+            //重启shell
+            $scope.resetShell=function (id) {
+                $http.get("../gth/resetShell?id="+id).success(
+                    function (response) {
+                        if(response.flag==true){
+                            $scope.entity = response;
+                            alert(response.message);
+                        }else {
+                            alert(response.message);
+                        }
+                    }
+                )
+                
+            }
+
+
+            //断开shell
+            $scope.breakShell = function (id) {
+                $http.get("../gth/breakShell?id="+id).success(
+                    function (response) {
+                        if(response.flag==true){
+                            $scope.entity = response;
+                              alert(response.message);
+                        }else {
+                              alert(response.message);
+                        }
+                    }
+                )
+            }
+
+            //复选框  添加ID 或者删除ID
+            $scope.selectIds = [];
+            $scope.updateSelection =function ($event,id) {
+                if($event.target.checked){
+                    //选中
+                    $scope.selectIds.push(id);
+                }else{
+                    //取消
+                    var index = $scope.selectIds.indexOf(id);
+                    $scope.selectIds.splice(index,1);
+                }
+
+                console.log( $scope.selectIds);
+            }
+            //一键重启(批量)
+            $scope.aKeyToRestartShell =function () {
+                $http.get("../gth/aKeyToRestartShell?ids="+$scope.selectIds).success(
+                    function (response) {
+                       if(response.flag==true){
+                            alert(response.message);
+                       }else {
+                            alert(response.message);
+                       }
+                    }
+                )
+            }
+
+        });
+    </script>
+
+</head>
+<body class="hold-transition skin-red sidebar-mini" ng-app="ICBC" ng-controller="gthController" ng-init="gthAll()">
+<!-- .box-body -->
+<div class="box-header with-border">
+    <h3 class="box-title">ICBC</h3>
+</div>
+
+<div class="box-body">
+
+    <!-- 数据表格 -->
+    <div class="table-box">
+
+        <!--工具栏-->
+        <div class="pull-left">
+            <div class="form-group form-inline">
+                <div class="btn-group">
+                    <!--   <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i> 新建</button>-->
+                    <button type="button" class="btn btn-default" title="重启" ng-click="aKeyToRestartShell()"><i class="fa fa-trash-o"></i>一键重启</button>
+                    <!--    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>-->
+                </div>
+            </div>
+        </div>
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+                品牌名称:<input type="text" ng-model="searchEntity.name"> 品牌首字母:<input type="text" ng-model="searchEntity.firstChar"> <input class="btn btn-default" ng-click="reloadList()" type="button" value="查询">
+            </div>
+        </div>
+        <!--工具栏/-->
+
+
+            <!--数据列表-->
+        <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+            <thead>
+            <tr>
+                <th class="" style="padding-right:0px">
+                    <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                </th>
+                <th class="sorting_asc">ID</th>
+                <th class="sorting">name</th>
+                <th class="sorting">URL</th>
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="entity in list">
+                <td><input  type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
+                <td>{{entity.id}}</td>
+                <td>{{entity.name}}</td>
+                <td>{{entity.url}}</td>
+                <td class="text-center">
+                    <button type="button" class="btn bg-olive btn-xs" ng-click="startShell(entity.id)" data-toggle="modal" data-target="#editModal"  >启动</button>
+                    <button type="button" class="btn bg-olive btn-xs" ng-click="resetShell(entity.id)" data-toggle="modal" data-target="#editModal"  >重启</button>
+                    <button type="button" class="btn bg-olive btn-xs" ng-click="breakShell(entity.id)" data-toggle="modal" data-target="#editModal"  >断开</button>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <!--数据列表/-->
+
+
+    </div>
+    <!-- 数据表格 /-->
+
+
+</div>
+
+</body>
+</html>

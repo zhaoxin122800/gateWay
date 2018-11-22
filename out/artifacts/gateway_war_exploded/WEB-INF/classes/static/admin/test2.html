@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>品牌管理</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../plugins/adminLTE/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js" ></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js" ></script>
+
+    <script src="../plugins/angularjs/angular.min.js"></script>
+    <script src="../plugins/angularjs/pagination.js" ></script>
+    <link rel="stylesheet" type="text/css" href="../plugins/angularjs/pagination.css" >
+
+
+    <script type="text/javascript">
+        var app = angular.module('ICBC',[]);
+        app.controller('gthController',function ($scope,$http) {
+
+            $scope.gthAll=function () {
+                $http.get('../gth/gthAll').success(
+                    function (response) {
+                        $scope.list=response;
+                    }
+                )
+            }
+
+            $scope.gthTitle = function () {
+                $http.get('../gth/gthTitle').success(
+                    function (response) {
+                        $scope.list=response;
+                    }
+                )
+            }
+//            onclickSelect(entity.userid)
+            $scope.onclickSelect=function (userid) {
+                $http.get('../gth/onclickSelect?userid='+userid).success(
+                    function (response) {
+                        $scope.list1=response;
+                    }
+                )
+            }
+
+
+
+
+            //启动shell
+            $scope.startShell = function (id) {
+                $http.get("../gth/startShell?id="+id).success(
+                    function (response) {
+                        if(response.flag==true){
+                            $scope.entity = response;
+                            console.log(response)
+//                               alert(response.message);
+                        }else {
+                               alert(response.message);
+                        }
+                        
+                    }
+                )
+            }
+
+
+            //重启shell
+            $scope.resetShell=function (id) {
+                $http.get("../gth/resetShell?id="+id).success(
+                    function (response) {
+                        if(response.flag==true){
+                            $scope.entity = response;
+                            alert(response.message);
+                        }else {
+                            alert(response.message);
+                        }
+                    }
+                )
+                
+            }
+
+
+            //断开shell
+            $scope.breakShell = function (id) {
+                $http.get("../gth/breakShell?id="+id).success(
+                    function (response) {
+                        if(response.flag==true){
+                            $scope.entity = response;
+                              alert(response.message);
+                        }else {
+                              alert(response.message);
+                        }
+                    }
+                )
+            }
+
+            //复选框  添加ID 或者删除ID
+            $scope.selectIds = [];
+            $scope.updateSelection =function ($event,id) {
+                if($event.target.checked){
+                    //选中
+                    $scope.selectIds.push(id);
+                }else{
+                    //取消
+                    var index = $scope.selectIds.indexOf(id);
+                    $scope.selectIds.splice(index,1);
+                }
+                console.log( $scope.selectIds);
+            }
+
+
+            //全选操作
+            $scope.selectAll = function ($event) {
+                var checkbox = $event.target;
+                var action = (checkbox.checked ? 'add' : 'remove');
+                // 遍历这个 content 把所有的元素从selected中添加或删除
+                for (var i = 0; i < $scope.content.length; i++) {
+                    var contact = $scope.content[i];
+                    updateSelection(action, contact.id);
+                }
+            };
+            $scope.isSelected = function (id) {
+                return $scope.selectIds.indexOf(id) >= 0;
+            };
+            //如果数据长度 == 全选的
+            $scope.isSelectedAll = function () {
+                return $scope.selectIds.length === $scope.content.length;
+            };
+
+
+
+
+            //一键重启(批量)
+            $scope.aKeyToRestartShell =function () {
+                $http.get("../gth/aKeyToRestartShell?ids="+$scope.selectIds).success(
+                    function (response) {
+                       if(response.flag==true){
+                            alert(response.message);
+                       }else {
+                            alert(response.message);
+                       }
+                    }
+                )
+            }
+            // 日志 全检
+            $scope.logInspect = function () {
+                $http.post("../gth/logInspect?ids="+$scope.selectIds).success(
+                    function (response) {
+                        if(response.flag == true){
+                            $scope.logInspectEntity = response;
+                         //   alert(response.message);
+                        }else {
+                            $scope.logInspectEntity = response;
+                        }
+
+                    }
+                )
+            }
+           // 模态框三  确认按钮
+            $scope.logInspectEntityCommand = function () {
+                // 模态三 携带日志全检 中参数
+                $http.post("../gth/logInspectEntityCommand",$scope.logInspectEntity).success(
+                    function (response) {
+                        $scope.logInspectEntityCommand =response;
+                    }
+                )
+            }
+
+            // 模态框四  确认按钮
+            $scope.twoLogInspectEntityCommand = function () {
+                //模态四  携带模态三中参数
+                $http.post("../gth/twoLogInspectEntityCommand",$scope.logInspectEntityCommand).success(
+                    function (response) {
+                        if(response.flag ==true){
+                            $scope.twoLogInspectEntityCommand = response;
+                            alert(response.message);
+                        }else{
+                            alert(response.message);
+                        }
+                    }
+                )
+
+            }
+
+
+
+
+            //模态框一的按钮  触发模态二
+            $scope.shellCommand=function () {
+                $http.post("../gth/shellCommand",$scope.entity).success(
+                    function (response) {
+                        if(response.flag){
+                            $scope.statyShellentity = response;
+                        //    alert(response.message);
+                        }else {
+                            alert(response.message);
+                        }
+                    }
+                )
+            }
+            // 模态框二按钮
+            $scope.twoShellCommand=function () {
+                $http.post("../gth/twoShellCommand",$scope.statyShellentity).success(
+                    function (response) {
+                        if(response.flag){
+                            $scope.twoStatyShellentity = response;
+                               alert(response.message);
+                        }else {
+                               alert(response.message);
+                        }
+                    }
+                )
+            }
+
+
+        });
+    </script>
+
+</head>
+<body class="hold-transition skin-red sidebar-mini" ng-app="ICBC" ng-controller="gthController" ng-init="gthTitle()">
+<!-- .box-body -->
+<div class="box-header with-border">
+    <h3 class="box-title">ICBC</h3>
+</div>
+
+<div class="box-body">
+
+    <!-- 数据表格 -->
+    <div class="table-box">
+
+        <!--工具栏-->
+        <div class="pull-left">
+            <div class="form-group form-inline">
+                <div class="btn-group">
+                    <!--<button type="button" class="btn btn-default" title="搜索" data-toggle="modal" data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i> 搜索</button>-->
+                    <button type="button" class="btn btn-default" title="一键重启" ng-click="aKeyToRestartShell()"><i class="fa fa-trash-o"></i>一键重启</button>
+                    <button type="button" class="btn btn-default" title="日志全检" ng-click="logInspect()"  data-toggle="modal" data-target="#editModal2"><i class="fa fa-trash-o" ></i>日志全检</button>
+                    <!--<button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>-->
+                </div>
+            </div>
+        </div>
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+                <!--品牌名称:<input type="text" ng-model="searchEntity.name"> 品牌首字母:<input type="text" ng-model="searchEntity.firstChar"> <input class="btn btn-default" ng-click="reloadList()" type="button" value="查询">-->
+
+                <div class="btn-group" >
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Action <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="entity in list">
+                            <a href="#" ng-click="onclickSelect(entity.users)" >Action{{entity.users}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--工具栏/-->
+
+        <!--数据列表-->
+        <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+            <thead>
+            <tr>
+                <th class="" style="padding-right:0px">
+                    <input id="selall" type="checkbox" class="icheckbox_square-blue" ng-click="selectAll($event)" ng-checked="isSelectedAll()">
+                </th>
+                <th class="sorting_asc">ID</th>
+                <th class="sorting">name</th>
+                <th class="sorting">URL</th>
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="entity in list1">
+                <td><input  type="checkbox"  ng-checked="isSelected(item.id)"  ng-click="updateSelection($event,entity.id)"></td>
+                <td>{{entity.id}}</td>
+                <td>{{entity.name}}</td>
+                <td>{{entity.url}}</td>
+                <td class="text-center">
+                    <button type="button" class="btn bg-olive btn-xs" ng-click="startShell(entity.id)" data-toggle="modal" data-target="#editModal"  > 日志</button>
+                    <button type="button" class="btn bg-olive btn-xs" ng-click="resetShell(entity.id)" data-toggle="modal"   >重启</button>
+                    <button type="button" class="btn bg-olive btn-xs" ng-click="breakShell(entity.id)" data-toggle="modal"   >断开</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--数据列表/-->
+
+
+    </div>
+    <!-- 数据表格 /-->
+    <!-- 分页 -->
+    <tm-pagination conf="paginationConf"></tm-pagination>
+</div>
+
+<!--编辑窗口-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">ICBC</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped"  width="800px">
+                    <tr>
+                        <td>搜索内容</td>
+                        <td><input ng-model="entity.shellParameter"  placeholder="参数" >
+                            <input ng-model="entity.shellValue"  placeholder="数值" >
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>展示结果</td>
+                        <!--<td><input type="text" style="width:500px;height:200px;" ng-model="entity.firstChar" readonly="true" class="form-control" placeholder="{{entity.message}}">  </td>-->
+                            <td><textarea rows="" cols="" style="width:800px;height:200px;" readonly="true" >{{entity.message}}</textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="shellCommand()" data-toggle="modal" data-target="#editModal1">确认</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!--模态窗口二-->
+<div class="modal fade" id="editModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel1">ICBC</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped"  width="800px">
+                    <tr>
+                        <td>搜索内容</td>
+                        <td><input ng-model="towStatyShellentity.shellParameter"  placeholder="参数" >
+                            <input ng-model="towStatyShellentity.shellValue"  placeholder="数值" >
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>展示结果</td>
+                        <!--<td><input type="text" style="width:500px;height:200px;" ng-model="entity.firstChar" readonly="true" class="form-control" placeholder="{{entity.message}}">  </td>-->
+                        <td><textarea rows="" cols="" style="width:800px;height:200px;" readonly="true" >{{statyShellentity.message}}</textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="twoShellCommand()" >确认</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--模态窗口三-->
+<div class="modal fade" id="editModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel2">ICBC</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped"  width="800px">
+                    <tr>
+                        <td>搜索内容</td>
+                        <td><input ng-model="logInspectEntity.shellParameter"  placeholder="参数" >
+                            <input ng-model="logInspectEntity.shellValue"  placeholder="数值" >
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>展示结果</td>
+                        <!--<td><input type="text" style="width:500px;height:200px;" ng-model="entity.firstChar" readonly="true" class="form-control" placeholder="{{entity.message}}">  </td>-->
+                        <td><textarea rows="" cols="" style="width:800px;height:200px;" readonly="true" >{{logInspectEntity.message}}</textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="logInspectEntityCommand()" data-toggle="modal" data-target="#editModal3">确认</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--模态窗口四-->
+<div class="modal fade" id="editModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel3">ICBC</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped"  width="800px">
+                    <tr>
+                        <td>搜索内容</td>
+                        <td><input ng-model="twoLogInspectEntityCommand.shellParameter"  placeholder="参数" >
+                            <input ng-model="twoLogInspectEntityCommand.shellValue"  placeholder="数值" >
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>展示结果</td>
+                        <!--<td><input type="text" style="width:500px;height:200px;" ng-model="entity.firstChar" readonly="true" class="form-control" placeholder="{{entity.message}}">  </td>-->
+                        <td><textarea rows="" cols="" style="width:800px;height:200px;" readonly="true" >{{logInspectEntityCommand.message}}</textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="twoLogInspectEntityCommand()" >确认</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

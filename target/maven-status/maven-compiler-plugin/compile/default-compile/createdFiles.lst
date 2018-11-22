@@ -1,0 +1,13 @@
+com\icbc\gateway\controller\ResponseUtil.class
+com\icbc\gateway\GatewayApplication.class
+com\icbc\gateway\util\RemoteExecuteCommand.class
+com\icbc\gateway\controller\winLinkLinuxGthController.class
+com\icbc\gateway\pojo\Result.class
+com\icbc\gateway\util\SSH2Util.class
+com\icbc\gateway\service\GthService.class
+com\icbc\gateway\pojo\ResultShell.class
+com\icbc\gateway\util\SSHLinux.class
+com\icbc\gateway\util\SSH2Util$1.class
+com\icbc\gateway\pojo\GTH.class
+com\icbc\gateway\pojo\User.class
+com\icbc\gateway\pojo\ResultShellLogInspect.class

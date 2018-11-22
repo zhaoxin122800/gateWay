@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="../pages/plugins/angularjs/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp',[]);
+
+        app.controller('myController',function ($scope) {
+
+            $scope.list = [100,192,122,423]
+            }
+        )
+
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+
+    <table>
+          <tr ng-repeat="entity in list" >
+              <td>{{entity}}</td>
+
+          </tr>
+
+    </table>
+
+
+</body>
+</html>

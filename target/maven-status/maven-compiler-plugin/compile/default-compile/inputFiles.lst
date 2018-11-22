@@ -1,0 +1,14 @@
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\util\RemoteExecuteCommand.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\util\ShellUtils.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\controller\ResponseUtil.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\GatewayApplication.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\pojo\GTH.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\service\GthService.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\util\SSHLinux.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\pojo\ResultList.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\pojo\ResultShellLogInspect.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\pojo\User.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\pojo\Result.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\pojo\ResultShell.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\util\SSH2Util.java
+D:\itcast\deiaDemo\gateway\src\main\java\com\icbc\gateway\controller\winLinkLinuxGthController.java
